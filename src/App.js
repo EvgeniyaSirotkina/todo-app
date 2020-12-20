@@ -13,6 +13,26 @@ class App extends React.Component {
     }
   }
 
+  doneTask = id => {
+    const index = this.state.tasks.map(task => task.id).indexOf(id);
+    this.setState(state => {
+      let { tasks } = this.state;
+      tasks[index].done = true;
+
+      return tasks;
+    });
+  }
+
+  deleteTask = id => {
+    const index = this.state.tasks.map(task => task.id).indexOf(id);
+    this.setState(state => {
+      let { tasks } = this.state;
+      delete tasks[index];
+      
+      return tasks;
+    });
+  }
+
   render() {
     const { tasks } = this.state;
     const activeTasks = tasks.filter(task => !task.done);
@@ -22,7 +42,12 @@ class App extends React.Component {
       <div className="App">
         <h1 className="top">Active tasks: { activeTasks.length }</h1>
         {[...activeTasks, ...doneTasks].map(task =>
-          <Task task={task} key={task.id}></Task>
+          <Task 
+            doneTask={() => this.doneTask(task.id)}
+            deleteTask={() => this.deleteTask(task.id)}
+            task={task}
+            key={task.id}>
+          </Task>
         )}
       </div>
     );
