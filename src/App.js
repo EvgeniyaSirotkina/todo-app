@@ -17,7 +17,7 @@ class App extends React.Component {
   doneTask = id => {
     const index = this.state.tasks.map(task => task.id).indexOf(id);
     this.setState(state => {
-      let { tasks } = this.state;
+      let { tasks } = state;
       tasks[index].done = true;
 
       return tasks;
@@ -26,7 +26,7 @@ class App extends React.Component {
 
   addTask = task => {
     this.setState(state => {
-      let { tasks } = this.state;
+      let { tasks } = state;
       tasks.push({
         id: tasks.length !== 0 ? tasks.length : 0,
         title: task,
@@ -40,7 +40,7 @@ class App extends React.Component {
   deleteTask = id => {
     const index = this.state.tasks.map(task => task.id).indexOf(id);
     this.setState(state => {
-      let { tasks } = this.state;
+      let { tasks } = state;
       delete tasks[index];
 
       return tasks;
