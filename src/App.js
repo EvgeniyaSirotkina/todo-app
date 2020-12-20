@@ -16,11 +16,12 @@ class App extends React.Component {
   render() {
     const { tasks } = this.state;
     const activeTasks = tasks.filter(task => !task.done);
+    const doneTasks = tasks.filter(task => task.done);
 
     return (
       <div className="App">
         <h1 className="top">Active tasks: { activeTasks.length }</h1>
-        {tasks.map(task =>
+        {[...activeTasks, ...doneTasks].map(task =>
           <Task task={task} key={task.id}></Task>
         )}
       </div>
