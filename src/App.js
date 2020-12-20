@@ -1,5 +1,6 @@
 import React from 'react';
 import Task from './components/Task';
+import TaskInput from './components/TaskInput';
 
 class App extends React.Component {
   constructor() {
@@ -23,12 +24,25 @@ class App extends React.Component {
     });
   }
 
+  addTask = task => {
+    this.setState(state => {
+      let { tasks } = this.state;
+      tasks.push({
+        id: tasks.length !== 0 ? tasks.length : 0,
+        title: task,
+        done: false
+      });
+
+      return tasks;
+    });
+  }
+
   deleteTask = id => {
     const index = this.state.tasks.map(task => task.id).indexOf(id);
     this.setState(state => {
       let { tasks } = this.state;
       delete tasks[index];
-      
+
       return tasks;
     });
   }
@@ -49,6 +63,7 @@ class App extends React.Component {
             key={task.id}>
           </Task>
         )}
+        <TaskInput addTask={this.addTask}></TaskInput>
       </div>
     );
   }
